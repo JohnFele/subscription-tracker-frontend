@@ -5,6 +5,9 @@
 [build.environment]
   NODE_VERSION = "22"
 
+[context.production.environment]
+  VITE_API_URL = "https://subscription-tracker-7twe.onrender.com"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"

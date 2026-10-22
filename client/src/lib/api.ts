@@ -6,12 +6,18 @@ import type {
   SubscriptionDraft,
   User,
 } from "./subscriptions";
-const DEFAULT_BASE = import.meta.env.VITE_API_URL ?? "";
-export const getApiBase = () =>
-  (localStorage.getItem("subtrack-api-url") ?? DEFAULT_BASE).replace(
-    /\/+$/,
-    ""
-  );
+const DEFAULT_BASE =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.PROD
+    ? "https://subscription-tracker-7twe.onrender.com"
+    : "");
+export const getApiBase = () => {
+  const base = import.meta.env.PROD
+    ? DEFAULT_BASE
+    : (localStorage.getItem("subtrack-api-url") ?? DEFAULT_BASE);
+
+  return base.replace(/\/+$/, "");
+};
 export const setApiBase = (value: string) =>
   localStorage.setItem("subtrack-api-url", value.trim().replace(/\/+$/, ""));
 export class ApiError extends Error {
